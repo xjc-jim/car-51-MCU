@@ -1,0 +1,197 @@
+C51 COMPILER V9.01   串口                                                                  06/02/2018 19:47:19 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE 串口
+OBJECT MODULE PLACED IN 串口.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 串口.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg52.h>
+   2          sbit out=P0^0;
+   3          sbit q=P1^0;
+   4          sbit m=P1^1;
+   5          sbit y=P1^2;
+   6          sbit t=P1^3;
+   7          int l,k=17000;
+   8          void delay(int f);
+   9          void main()
+  10          {
+  11   1      TMOD=0x20;
+  12   1      TH1=0xfd;
+  13   1      TL1=0xfd;
+  14   1      TR1=1;
+  15   1      SM0=0;
+  16   1      SM1=1;
+  17   1      REN=1;
+  18   1      while(1)
+  19   1      {
+  20   2              while(1)
+  21   2               {
+  22   3                if(RI==1)
+  23   3                {      
+  24   4                RI=0;
+  25   4                if(SBUF==0x39)
+  26   4                {
+  27   5                y=1;
+  28   5                t=0;
+  29   5                }
+  30   4                if(SBUF==0x53)
+  31   4                {
+  32   5                y=1;
+  33   5                t=1;
+  34   5                }
+  35   4      
+  36   4                 if(SBUF==0x36)
+  37   4        {
+  38   5                      
+  39   5             while(1)
+  40   5          {
+  41   6                l--;
+  42   6                k++;
+  43   6            q=1;
+  44   6            m=0;
+  45   6                if(k>=17000) 
+  46   6                {
+  47   7                q=1;
+  48   7                m=1;
+  49   7                break;
+  50   7                }
+  51   6                
+  52   6                 if(SBUF==0x38)
+  53   6                {
+  54   7                 RI=0;
+  55   7                 break;
+C51 COMPILER V9.01   串口                                                                  06/02/2018 19:47:19 PAGE 2   
+
+  56   7                }
+  57   6              }
+  58   5      
+  59   5         }
+  60   4                
+  61   4                if(SBUF==0x37)
+  62   4                {
+  63   5             
+  64   5               while(1)
+  65   5           {
+  66   6                 l++;
+  67   6                 k--;
+  68   6             q=0;
+  69   6             m=1;
+  70   6                 if(l>=17000) 
+  71   6                 {
+  72   7                 q=1;
+  73   7                 m=1;
+  74   7                 break;
+  75   7                 }
+  76   6                 
+  77   6                 if(SBUF==0x38)
+  78   6             {           
+  79   7                 RI=0;
+  80   7                 break;
+  81   7                       }
+  82   6                }      
+  83   5      
+  84   5                 
+  85   5            }
+  86   4                
+  87   4           if(SBUF==0x38)
+  88   4          {
+  89   5            q=0;
+  90   5            m=0;
+  91   5          }
+  92   4      
+  93   4      
+  94   4      
+  95   4                 if(SBUF==0x31)
+  96   4                 {
+  97   5                 P1=0xff;
+  98   5                       }
+  99   4      
+ 100   4                 if(SBUF==0x32)
+ 101   4                 {
+ 102   5                 P1=0x5f;
+ 103   5                              }
+ 104   4      
+ 105   4                      if(SBUF==0x33)
+ 106   4                      {
+ 107   5                      P1=0xaf;
+ 108   5                      }
+ 109   4      
+ 110   4                      if(SBUF==0x34)
+ 111   4                      {
+ 112   5                      P1=0x6f;
+ 113   5                      }
+ 114   4      
+ 115   4                      if(SBUF==0x35)
+ 116   4                      {
+ 117   5                      P1=0x9f;
+C51 COMPILER V9.01   串口                                                                  06/02/2018 19:47:19 PAGE 3   
+
+ 118   5                      }
+ 119   4                      
+ 120   4                      
+ 121   4                 }
+ 122   3                      if(out==0) 
+ 123   3                 {
+ 124   4                 P1=0xff;
+ 125   4                 break;
+ 126   4                  }  
+ 127   3               }
+ 128   2              
+ 129   2                      while(1)
+ 130   2               {
+ 131   3      
+ 132   3                if(RI==1)
+ 133   3                {
+ 134   4                 if(SBUF==0x31)
+ 135   4                 {
+ 136   5                 P1=0xff;
+ 137   5                       }
+ 138   4      
+ 139   4                 if(SBUF==0x32)
+ 140   4                 {
+ 141   5                 P1=0x5f;
+ 142   5                              }
+ 143   4      
+ 144   4                      if(SBUF==0x33)
+ 145   4                      {
+ 146   5                      P1=0xaf;
+ 147   5                      }
+ 148   4      
+ 149   4                      if(SBUF==0x34)
+ 150   4                      {
+ 151   5                      P1=0x6f;
+ 152   5                      }
+ 153   4      
+ 154   4                      if(SBUF==0x35)
+ 155   4                      {
+ 156   5                      P1=0x9f;
+ 157   5                      }
+ 158   4                      RI=0;
+ 159   4                        
+ 160   4                 }
+ 161   3                 if(out==1) 
+ 162   3                 {
+ 163   4                 break;
+ 164   4                 }      
+ 165   3               }
+ 166   2         }
+ 167   1      }
+ 168          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    252    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.01   串口                                                                  06/02/2018 19:47:19 PAGE 4   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
