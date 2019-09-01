@@ -4,11 +4,11 @@ sbit q=P1^0;
 sbit m=P1^1;
 sbit y=P1^2;
 sbit t=P1^3;
-int l,k=17000;
-void delay(int f);
+int l,k=17000;                         //l,k的作用就是限制控制灭火风扇（空心杯）方向的连杆的减速电机的活动范围
+void delay(int f);                     //声明延时函数
 void main()
 {
-TMOD=0x20;
+TMOD=0x20;                             //开启定时器产生产生波特率（串口通信需要）
 TH1=0xfd;
 TL1=0xfd;
 TR1=1;
@@ -19,10 +19,10 @@ while(1)
 {
 	while(1)
 	 {
-	  if(RI==1)
+	  if(RI==1)                              //RI是接收到数据的标志位
 	  {	 
 	  RI=0;
-	  if(SBUF==0x39)
+	  if(SBUF==0x39)                         //SBUF就是蓝牙接收到的数据
 	  {
 	  y=1;
 	  t=0;
@@ -33,7 +33,7 @@ while(1)
 	  t=1;
 	  }
 
-	   if(SBUF==0x36)
+	   if(SBUF==0x36)                   //控制连杆的信号
   {
 	  	
        while(1)
@@ -58,7 +58,7 @@ while(1)
 
    }
 	  
-	  if(SBUF==0x37)
+	  if(SBUF==0x37)                //控制连杆的信号
 	  {
        
        	 while(1)
